@@ -8,7 +8,8 @@ import EditPost from './EditPost';
 import { Route, Routes, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import api from './api/posts'
+import api from './api/posts';
+import useWindowSize from './hooks/useWindowSize';
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -19,6 +20,7 @@ function App() {
   const [editTitle, setEditTitle] = useState('')
   const [editBody, setEditBody] = useState('')
   const navigate = useNavigate()
+  const { width } = useWindowSize()
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -94,6 +96,7 @@ function App() {
           <Route path='/' element={ <Layout 
             search={search}
             setSearch={setSearch}
+            width = {width}
             />}>
             <Route index element={ <Home posts={searchResults}/>} />
               <Route path='post'>
